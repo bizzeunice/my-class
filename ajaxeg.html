@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>AJAX</h1>
+    <button id="load-data">Load Data</button>
+    <div id="data-container"></div>
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const loadDataButton = document.getElementById("load-data");
+            const dataContainer = document.getElementById("data-container");
+
+            loadDataButton.addEventListener("click", function () {
+                const xhr = new XMLHttpRequest();
+                xhr.open("GET", "https://jsonplaceholder.typicode.com/posts/1", true);
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+                        const data = JSON.parse(xhr.responseText);
+
+                        dataContainer.innerHTML = `<p>User ID: ${data.userId}</p><p>Title: ${data.title}</p><p>Body: ${data.body}</p>`;
+                    } else {
+                        dataContainer.innerHTML = "Error loading data.";
+                    }
+                };
+
+                xhr.send();
+            });
+        });
+
+
+    </script>
+</body>
+
+</html>
